@@ -2,15 +2,19 @@ package EditorUi;
 
 
 
+import objects.Identifier;
 import constants.GlobalConstants;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.Arrays;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import objects.clientInitalizer;
+//import Objects.clientInitalizer;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -41,16 +45,7 @@ public class Listener extends Thread {
                     GlobalConstants.documentName=new StringBuffer(clientInit.getDocumentName());
                     GlobalConstants.text=new StringBuffer(clientInit.getText());
                     GlobalConstants.clientId.set(clientInit.getClientId());
-//                    if(GlobalConstants.editWin ==null){
-//                        try {
-//                            System.out.print("sleeping");
-//                            Thread.sleep(200);
-//                            
-//                        } catch (InterruptedException ex) {
-//                            Logger.getLogger(Listener.class.getName()).log(Level.SEVERE, null, ex);
-//                        }
-//                    }
-                //    GlobalConstants.editWin.initialize();
+                    GlobalConstants.positionList.addAll(clientInit.getPositionList());
                 }
             } catch (IOException ex) {
                 Logger.getLogger(Listener.class.getName()).log(Level.SEVERE, null, ex);

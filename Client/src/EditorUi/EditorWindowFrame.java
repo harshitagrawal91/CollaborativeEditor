@@ -181,6 +181,7 @@ public class EditorWindowFrame extends javax.swing.JFrame {
         // executes the swingworker on worker thread 
         sw1.execute();
     }
+    
     private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
         System.out.println("Document Name Changed");
     }//GEN-LAST:event_jTextField1KeyTyped

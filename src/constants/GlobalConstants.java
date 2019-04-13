@@ -6,10 +6,13 @@
 package constants;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicLong;
 import objects.ClientInfo;
+import objects.Identifier;
 import objects.conf;
 
 /**
@@ -20,9 +23,9 @@ public class GlobalConstants {
     public static conf configuration;
     public static HashMap <Long,ArrayList<ClientInfo>> clientMap=new HashMap<>();
     public static AtomicInteger clientId=new AtomicInteger();
-    public static StringBuffer documentName=new StringBuffer("newDocument");
-    public static StringBuffer text=new StringBuffer("harsh");
-    
+    public static StringBuffer documentName=new StringBuffer("newDocument1");
+    public static StringBuffer text=new StringBuffer("harshit");
+    public static CopyOnWriteArrayList<Identifier>positionList = new CopyOnWriteArrayList<>();
 
     public static HashMap<Long, ArrayList<ClientInfo>> getClientMap() {
         return clientMap;

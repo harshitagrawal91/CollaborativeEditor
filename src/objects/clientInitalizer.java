@@ -6,6 +6,8 @@
 package objects;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  *
@@ -15,11 +17,21 @@ public class clientInitalizer implements Serializable{
     int ClientId;
     String documentName;
     StringBuffer text;
+    CopyOnWriteArrayList<Identifier> positionList;
 
-    public clientInitalizer(int ClientId, String documentName, StringBuffer text) {
+    public CopyOnWriteArrayList<Identifier> getPositionList() {
+        return positionList;
+    }
+
+    public void setPositionList(CopyOnWriteArrayList<Identifier> positionList) {
+        this.positionList.addAll(positionList);
+    }
+
+    public clientInitalizer(int ClientId, String documentName, StringBuffer text,CopyOnWriteArrayList<Identifier> positionList) {
         this.ClientId = ClientId;
         this.documentName = documentName;
         this.text = text;
+        this.positionList=positionList;
     }
     
 

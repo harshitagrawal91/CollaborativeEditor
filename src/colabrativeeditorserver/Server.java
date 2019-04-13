@@ -17,7 +17,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicLong;
+import objects.Identifier;
 import objects.clientInitalizer;
 
 public class Server extends Thread {
@@ -42,7 +44,8 @@ public class Server extends Thread {
                 ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
                 out.flush();
                 ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
-                clientInitalizer ci = new clientInitalizer(GlobalConstants.clientId.incrementAndGet(), GlobalConstants.documentName.toString(), GlobalConstants.text);
+                clientInitalizer ci = new clientInitalizer(GlobalConstants.clientId.incrementAndGet(), GlobalConstants.documentName.toString(), GlobalConstants.text
+                ,GlobalConstants.positionList);
                 try {
                     out.writeObject(ci);
                     out.flush();

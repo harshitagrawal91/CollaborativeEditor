@@ -6,7 +6,13 @@
 package constants;
 
 import EditorUi.EditorWindowFrame;
+import objects.Identifier;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  *
@@ -18,5 +24,7 @@ public class GlobalConstants {
     public static StringBuffer documentName = new StringBuffer("newDocument");
     public static StringBuffer text = new StringBuffer("harsh");
     public volatile static EditorWindowFrame editWin;
+    //public static List<String> positionList = Collections.synchronizedList(new ArrayList<String>()); 
+    public static CopyOnWriteArrayList<Identifier> positionList = new CopyOnWriteArrayList<>(); 
 
 }
