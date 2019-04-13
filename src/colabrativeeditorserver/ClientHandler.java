@@ -43,15 +43,17 @@ private final Long uniqueID;
              String docName=altemp.get(0).getFileName();
              altemp.add(new ClientInfo(this.uniqueID,docName,this));         
         }
+         try {
        while(true){
-            try {
+           
                 Object obj=in.readObject();
-            } catch (IOException ex) {
+           
+       }
+        
+    } catch (IOException ex) {
 //                Logger.getLogger(ClientHandler.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
 //                Logger.getLogger(ClientHandler.class.getName()).log(Level.SEVERE, null, ex);
             }
-       }
-        
-    }
+}
 }
