@@ -14,32 +14,24 @@ import java.io.Serializable;
 
 
 public class Message implements Serializable {
-   private long uniqueId;
-   private String fileName;
-   private StringBuffer text;
+  Identifier position;
+  char character;
 
-    public long getUniqueId() {
-        return uniqueId;
+    public Identifier getPosition() {
+        return position;
     }
 
-    public void setUniqueId(long uniqueId) {
-        this.uniqueId = uniqueId;
+    public void setPosition(Identifier position) {
+        this.position = position;
     }
 
-    public String getFileName() {
-        return fileName;
+    public char getCharacter() {
+        return character;
     }
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
+    public void setCharacter(char character) {
+        this.character = character;
     }
-
-    public StringBuffer getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = new StringBuffer(text);
-    }
+  
    
 }
