@@ -7,6 +7,8 @@ package constants;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 import objects.ClientInfo;
 import objects.conf;
 
@@ -17,6 +19,10 @@ import objects.conf;
 public class GlobalConstants {
     public static conf configuration;
     public static HashMap <Long,ArrayList<ClientInfo>> clientMap=new HashMap<>();
+    public static AtomicInteger clientId=new AtomicInteger();
+    public static StringBuffer documentName=new StringBuffer("newDocument");
+    public static StringBuffer text=new StringBuffer("harsh");
+    
 
     public static HashMap<Long, ArrayList<ClientInfo>> getClientMap() {
         return clientMap;

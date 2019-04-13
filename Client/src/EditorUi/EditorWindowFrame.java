@@ -1,4 +1,8 @@
+package EditorUi;
 
+
+
+import constants.GlobalConstants;
 import java.awt.Color;
 import java.io.IOException;
 import java.util.Scanner;
@@ -19,8 +23,8 @@ public class EditorWindowFrame extends javax.swing.JFrame {
     /**
      * Creates new form Editor
      */
-    public EditorWindowFrame(long frameID) throws IOException {
-        this.frameID = frameID;
+    public EditorWindowFrame() throws IOException {
+//        this.frameID = frameID;
         initComponents();
         System.out.println("this.frameID: " + this.frameID);
         System.out.println("passed frameID:" + frameID);
@@ -151,7 +155,21 @@ public class EditorWindowFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    public void initialize(){
+      jLabel3.setText(GlobalConstants.clientId.toString());
+        System.out.println(GlobalConstants.clientId);
+      jLabel3.paintImmediately(jLabel3.getVisibleRect());
+      jTextField1.setText(GlobalConstants.documentName.toString());
+      jTextField1.repaint();
+      jTextArea1.setText(GlobalConstants.text.toString());
+      jTextArea1.repaint();
+      revalidate();
+      repaint();
+        update(this.getGraphics());
+   //   new EditorWindowFrame.update(this.getGraphics());
+    //  super.update(this.getGraphics());
+      
+    }
     private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
         System.out.println("Document Name Changed");
     }//GEN-LAST:event_jTextField1KeyTyped
@@ -231,10 +249,12 @@ public class EditorWindowFrame extends javax.swing.JFrame {
             @Override
             public void run() {
                 try {
-                    new EditorWindowFrame(frameID).setVisible(true);
+                    new EditorWindowFrame().setVisible(true);
                 } catch (IOException ex) {
                     Logger.getLogger(EditorWindowFrame.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                jTextArea1.setText("hello");
+                jTextArea1.updateUI();
             }
         });
     }
@@ -251,5 +271,5 @@ public class EditorWindowFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
     Scanner scanner;
-    long frameID;
+    int frameID;
 }
