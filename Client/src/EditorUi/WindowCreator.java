@@ -34,11 +34,9 @@ public class WindowCreator extends Thread {
                 EditorWindowFrame editWin = null;
                 try {
                     editWin = new EditorWindowFrame();
-                    
-                    editWin.invoke();
+                    editWin.setVisible(true);
                     GlobalConstants.editWin=editWin;
-                    editWin.initialize();
-                    //Is it right to use get and get and increment in the same scope????????
+                    editWin.setInitial();                    //Is it right to use get and get and increment in the same scope????????
                     //new EditorServer().start();
                 } catch (IOException ex) {
                     Logger.getLogger(WindowCreator.class.getName()).log(Level.SEVERE, null, ex);
