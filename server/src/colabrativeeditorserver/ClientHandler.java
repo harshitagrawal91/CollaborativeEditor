@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import objects.ClientInfo;
+import clientObjects.ClientInfo;
 
 /**
  *

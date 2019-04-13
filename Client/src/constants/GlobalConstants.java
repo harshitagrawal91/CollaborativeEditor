@@ -6,7 +6,7 @@
 package constants;
 
 import EditorUi.EditorWindowFrame;
-import objects.Identifier;
+import clientObjects.Identifier;
 
 import java.util.ArrayList;
 import java.util.Collections;
