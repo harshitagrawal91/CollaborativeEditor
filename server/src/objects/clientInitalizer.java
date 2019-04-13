@@ -18,20 +18,30 @@ public class clientInitalizer implements Serializable{
     String documentName;
     StringBuffer text;
     CopyOnWriteArrayList<Identifier> positionList;
+    CopyOnWriteArrayList<Double> doublePositionList;
+
+    public CopyOnWriteArrayList<Double> getDoublePositionList() {
+        return doublePositionList;
+    }
+
+    public void setDoublePositionList(CopyOnWriteArrayList<Double> doublePositionList) {
+        this.doublePositionList = doublePositionList;
+    }
 
     public CopyOnWriteArrayList<Identifier> getPositionList() {
         return positionList;
     }
 
     public void setPositionList(CopyOnWriteArrayList<Identifier> positionList) {
-        this.positionList.addAll(positionList);
+        this.positionList=positionList;
     }
 
-    public clientInitalizer(int ClientId, String documentName, StringBuffer text,CopyOnWriteArrayList<Identifier> positionList) {
+    public clientInitalizer(int ClientId, String documentName, StringBuffer text,CopyOnWriteArrayList<Identifier> positionList,CopyOnWriteArrayList<Double> doublePositionList) {
         this.ClientId = ClientId;
         this.documentName = documentName;
         this.text = text;
         this.positionList=positionList;
+        this.doublePositionList=doublePositionList;
     }
     
 

@@ -26,6 +26,7 @@ public class GlobalConstants {
     public static StringBuffer documentName=new StringBuffer("newDocument1");
     public static StringBuffer text=new StringBuffer("harshit");
     public static CopyOnWriteArrayList<Identifier>positionList = new CopyOnWriteArrayList<>();
+    public static CopyOnWriteArrayList<Double>doublepositionList = new CopyOnWriteArrayList<>();
 
     public static HashMap<Long, ArrayList<ClientInfo>> getClientMap() {
         return clientMap;

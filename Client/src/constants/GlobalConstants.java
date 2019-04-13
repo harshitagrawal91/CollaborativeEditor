@@ -26,5 +26,6 @@ public class GlobalConstants {
     public volatile static EditorWindowFrame editWin;
     //public static List<String> positionList = Collections.synchronizedList(new ArrayList<String>()); 
     public static CopyOnWriteArrayList<Identifier> positionList = new CopyOnWriteArrayList<>(); 
+     public static CopyOnWriteArrayList<Double>doublepositionList = new CopyOnWriteArrayList<>();
 
 }

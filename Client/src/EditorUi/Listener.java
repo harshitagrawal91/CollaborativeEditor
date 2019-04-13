@@ -46,6 +46,7 @@ public class Listener extends Thread {
                     GlobalConstants.text=new StringBuffer(clientInit.getText());
                     GlobalConstants.clientId.set(clientInit.getClientId());
                     GlobalConstants.positionList.addAll(clientInit.getPositionList());
+                    GlobalConstants.doublepositionList.addAll(clientInit.getDoublePositionList());
                 }
             } catch (IOException ex) {
                 Logger.getLogger(Listener.class.getName()).log(Level.SEVERE, null, ex);

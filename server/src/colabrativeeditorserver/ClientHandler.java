@@ -26,23 +26,23 @@ public class ClientHandler extends Thread {
 private ObjectInputStream in;
 private ObjectOutputStream out;
 private Socket socket;
-private final Long uniqueID;
-    public ClientHandler(ObjectInputStream in,ObjectOutputStream out,Socket socket,Long uniqueID) {
+private final int clientId;
+    public ClientHandler(ObjectInputStream in,ObjectOutputStream out,Socket socket,int uniqueID) {
         this.in=in;
         this.out=out;
         this.socket=socket;
-        this.uniqueID=uniqueID;
+        this.clientId=uniqueID;
     } 
     public void run(){
-        if(GlobalConstants.getClientMap().get(uniqueID)==null){
-             ArrayList<ClientInfo> altemp=new ArrayList<>();
-             altemp.add(new ClientInfo(this.uniqueID,"new Document",this));
-             GlobalConstants.getClientMap().put(uniqueID,altemp);
-        }else{
-             ArrayList<ClientInfo> altemp=GlobalConstants.getClientMap().get(uniqueID);
-             String docName=altemp.get(0).getFileName();
-             altemp.add(new ClientInfo(this.uniqueID,docName,this));         
-        }
+//        if(GlobalConstants.getClientMap().get(clientId)==null){
+//             ArrayList<ClientInfo> altemp=new ArrayList<>();
+//             altemp.add(new ClientInfo(this.clientId,"new Document",this));
+//             GlobalConstants.getClientMap().put(clientId,altemp);
+//        }else{
+//             ArrayList<ClientInfo> altemp=GlobalConstants.getClientMap().get(clientId);
+//             String docName=altemp.get(0).getFileName();
+//             altemp.add(new ClientInfo(this.clientId,docName,this));         
+//        }
          try {
        while(true){
            

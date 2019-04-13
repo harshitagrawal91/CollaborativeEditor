@@ -45,7 +45,7 @@ public class Server extends Thread {
                 out.flush();
                 ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
                 clientInitalizer ci = new clientInitalizer(GlobalConstants.clientId.incrementAndGet(), GlobalConstants.documentName.toString(), GlobalConstants.text
-                ,GlobalConstants.positionList);
+                ,GlobalConstants.positionList,GlobalConstants.doublepositionList);
                 try {
                     out.writeObject(ci);
                     out.flush();
@@ -53,7 +53,7 @@ public class Server extends Thread {
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }
-                new ClientHandler(in, out, socket, uniqueID.getAndIncrement()).start();
+                new ClientHandler(in, out, socket, GlobalConstants.clientId.get()).start();
 
             }
 ////            DataOutputStream out = new DataOutputStream(new FileOutputStream(fileName));
