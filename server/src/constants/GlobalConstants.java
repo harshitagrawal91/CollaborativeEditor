@@ -30,7 +30,7 @@ public class GlobalConstants {
     public static ConcurrentHashMap <Integer,ClientInfo> clientList=new ConcurrentHashMap<Integer,ClientInfo>();
     public static AtomicInteger clientId=new AtomicInteger();
     public static StringBuffer documentName=new StringBuffer("newDocument1");
-    public static StringBuffer text=new StringBuffer("harshit");
+    public static StringBuffer text=new StringBuffer("");
     public static CopyOnWriteArrayList<Identifier>positionList = new CopyOnWriteArrayList<>();
     public static CopyOnWriteArrayList<Double>doublepositionList = new CopyOnWriteArrayList<>();
     public static BroadcasterThread broadcasterThread;
