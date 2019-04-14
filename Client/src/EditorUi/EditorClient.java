@@ -2,6 +2,7 @@ package EditorUi;
 
 
 
+import constants.GlobalConstants;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -32,8 +33,10 @@ public class EditorClient {
             os.flush();
             ObjectInputStream in=new ObjectInputStream(socket.getInputStream());
             System.out.print("connected to server");
-            new Listener(in, os, socket).start();
-            new Writer(in, os, socket).start();
+            GlobalConstants.listener = new Listener(in, os, socket);
+            GlobalConstants.listener.start();
+            GlobalConstants.writer = new Writer(in, os, socket);
+            GlobalConstants.writer.start();            
         }catch(IOException e){
             
         }

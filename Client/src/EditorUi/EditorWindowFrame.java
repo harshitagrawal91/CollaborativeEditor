@@ -1,5 +1,6 @@
 package EditorUi;
 
+import clientObjects.writeQueueMessage;
 import constants.GlobalConstants;
 import java.awt.Color;
 import java.io.IOException;
@@ -182,6 +183,7 @@ public class EditorWindowFrame extends javax.swing.JFrame {
         sw1.execute();
     }
     
+    
     private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
         System.out.println("Document Name Changed");
     }//GEN-LAST:event_jTextField1KeyTyped
@@ -219,7 +221,8 @@ public class EditorWindowFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextArea1FocusLost
 
     private void jTextArea1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea1KeyPressed
-        // TODO add your handling code here:
+        int position = jTextArea1.getSelectionStart();
+        GlobalConstants.writer.message.add(new writeQueueMessage(position, evt.getKeyText(evt.getKeyCode())));
     }//GEN-LAST:event_jTextArea1KeyPressed
 
     private void jTextArea1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea1KeyReleased

@@ -19,8 +19,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicLong;
-import objects.Identifier;
-import objects.clientInitalizer;
+import clientObjects.Identifier;
+import clientObjects.clientInitalizer;
 
 public class Server extends Thread {
 

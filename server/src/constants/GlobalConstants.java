@@ -11,9 +11,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
-import objects.ClientInfo;
-import objects.Identifier;
-import objects.conf;
+import clientObjects.ClientInfo;
+import clientObjects.Identifier;
+import clientObjects.conf;
 
 /**
  *

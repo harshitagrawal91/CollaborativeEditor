@@ -11,7 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import objects.conf;
+import clientObjects.conf;
 
 /**
  *

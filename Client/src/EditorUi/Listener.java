@@ -2,7 +2,7 @@ package EditorUi;
 
 
 
-import objects.Identifier;
+import clientObjects.Identifier;
 import constants.GlobalConstants;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import objects.clientInitalizer;
+import clientObjects.clientInitalizer;
 //import Objects.clientInitalizer;
 
 /*

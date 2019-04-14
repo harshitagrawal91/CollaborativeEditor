@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package objects;
+package clientObjects;
 
 import java.io.Serializable;
 
@@ -14,6 +14,15 @@ import java.io.Serializable;
 public class Identifier implements Serializable{
     double relativePosition;
     int siteId;
+    int actualPosition;
+
+    public int getActualPosition() {
+        return actualPosition;
+    }
+
+    public void setActualPosition(int actualPosition) {
+        this.actualPosition = actualPosition;
+    }
 
     public double getRelativePosition() {
         return relativePosition;
