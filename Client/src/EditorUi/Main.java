@@ -20,8 +20,8 @@ public class Main {
     public static void main(String args[])
     {
         System.out.println("Make Client connection");
-        WindowCreator mainWindow = new WindowCreator(windowType.MAIN);
-         mainWindow.start();
+        WindowCreator EditorWindow = new WindowCreator(windowType.EDITOR);
+         EditorWindow.start();
           EditorClient ec;
         try {
             ec = new EditorClient(7001);
