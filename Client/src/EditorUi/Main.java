@@ -22,9 +22,8 @@ public class Main {
         System.out.println("Make Client connection");
         WindowCreator EditorWindow = new WindowCreator(windowType.EDITOR);
          EditorWindow.start();
-          EditorClient ec;
         try {
-            ec = new EditorClient(7001);
+        	EditorClient ec = new EditorClient(7001);
              ec.connectToServer();
         } catch (IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);

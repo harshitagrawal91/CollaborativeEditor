@@ -41,7 +41,8 @@ public class Listener extends Thread {
             try {
                 Object obj=in.readObject();
                 if(obj instanceof clientInitalizer){
-                    clientInitalizer clientInit=(clientInitalizer)obj;
+                    System.out.println("in listener.java");
+                	clientInitalizer clientInit=(clientInitalizer)obj;
                     GlobalConstants.documentName=new StringBuffer(clientInit.getDocumentName());
                     GlobalConstants.text=new StringBuffer(clientInit.getText());
                     GlobalConstants.clientId.set(clientInit.getClientId());

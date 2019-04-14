@@ -14,7 +14,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * @author harsh
  */
 public class clientInitalizer implements Serializable{
-   int ClientId;
+    int ClientId;
     String documentName;
     StringBuffer text;
     CopyOnWriteArrayList<Identifier> positionList;

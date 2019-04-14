@@ -12,6 +12,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.concurrent.TimeUnit;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -30,29 +31,38 @@ public class EditorClient {
     }
     public void connectToServer(){
         try{
-            final Socket socket = new Socket("localhost",port);
-          final  ObjectOutputStream os=new ObjectOutputStream(socket.getOutputStream());
-            os.flush();
-           final  ObjectInputStream in=new ObjectInputStream(socket.getInputStream());
+           Socket socket = new Socket("localhost",port);
+           ObjectOutputStream os=new ObjectOutputStream(socket.getOutputStream());
+           os.flush();
+           ObjectInputStream in=new ObjectInputStream(socket.getInputStream());
             System.out.print("connected to server");
             GlobalConstants.listener = new Listener(in, os, socket);
             GlobalConstants.listener.start();
-            Identifier identifier = new Identifier();
-                    identifier.setActualPosition(0);
-                    identifier.setRelativePosition(0);
-                    identifier.setSiteId(GlobalConstants.clientId.get());
-                    //GlobalConstants.positionList.add(0, identifier);
-                    InsertMessage im = new InsertMessage();
-                    im.setPosition(identifier);
-                    im.setCharacter('c');
-                    im.setActualPosition(0);
-                    try {
-            os.writeObject(im);
-            os.flush();
-//			System.out.println("Send message: " + msg + " to Client " + no);
-        } catch (IOException ioException) {
-          System.out.print("error");
-        }
+            try {
+            TimeUnit.SECONDS.sleep(2);
+            }
+            catch(Exception e) {
+            	e.getMessage();
+            }
+//			commented by Akshay on April 14 6:52am
+//            Identifier identifier = new Identifier();
+//            identifier.setActualPosition(0);
+//            identifier.setRelativePosition(0);
+//            identifier.setSiteId(GlobalConstants.clientId.get());
+//            System.out.println("test"+GlobalConstants.clientId.get());
+//            System.out.println("test"+identifier.getSiteId());
+//            //GlobalConstants.positionList.add(0, identifier);
+//            InsertMessage im = new InsertMessage();
+//            im.setPosition(identifier);
+//            im.setCharacter('c');
+//            im.setActualPosition(0);
+//            try {
+//	            os.writeObject(im);
+//	            os.flush();
+//	//			System.out.println("Send message: " + msg + " to Client " + no);
+//	        } catch (IOException ioException) {
+//	          System.out.print("error");
+//	        }
             Writer w=new Writer(in, os, socket);
             w.start();
             GlobalConstants.writer = w;

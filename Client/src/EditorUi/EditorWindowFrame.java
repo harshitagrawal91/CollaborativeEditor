@@ -222,7 +222,10 @@ public class EditorWindowFrame extends javax.swing.JFrame {
 
     private void jTextArea1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea1KeyPressed
         int position = jTextArea1.getSelectionStart();
-        GlobalConstants.writer.message.add(new writeQueueMessage(position, evt.getKeyText(evt.getKeyCode())));
+        String ch = evt.getKeyText(evt.getKeyCode());
+        //need to pass object of type write Queue Message
+        writeQueueMessage msg = new writeQueueMessage(position, ch);
+        GlobalConstants.writer.message.add(msg);
     }//GEN-LAST:event_jTextArea1KeyPressed
 
     private void jTextArea1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea1KeyReleased

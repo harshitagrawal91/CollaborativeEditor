@@ -35,9 +35,10 @@ public class Writer extends Thread {
     }
 
     public void run() {
-        System.out.print("listener started\n");
+        System.out.print("in writer.java\n");
         while (true) {
             while (!message.isEmpty()) {
+            	System.out.println("value in message");
                 writeQueueMessage m = message.poll();
                 int pos = m.getPosition();
                 char ch = m.getCh().charAt(0);
@@ -94,7 +95,8 @@ public class Writer extends Thread {
         try {
             out.writeObject(msg);
             out.flush();
-//			System.out.println("Send message: " + msg + " to Client " + no);
+            System.out.println("message sent from writer.java");
+			//System.out.println("Send message: " + msg + " to Client " + no);
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
