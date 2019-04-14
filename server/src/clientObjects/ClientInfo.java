@@ -12,31 +12,21 @@ import colabrativeeditorserver.ClientHandler;
  * @author harsh
  */
 public class ClientInfo {
-   private long uniqueId;
-   private String fileName;
+   private int uniqueId;
    private ClientHandler clientHandler;
 
-    public ClientInfo(long uniqueId,String fileName,ClientHandler clientHandler) {
+    public ClientInfo(int uniqueId,ClientHandler clientHandler) {
         this.uniqueId=uniqueId;
-        this.fileName=fileName;
         this.clientHandler=clientHandler;
     }
    
 
-    public long getUniqueId() {
+    public int getUniqueId() {
         return uniqueId;
     }
 
-    public void setUniqueId(long uniqueId) {
+    public void setUniqueId(int uniqueId) {
         this.uniqueId = uniqueId;
-    }
-
-    public String getFileName() {
-        return fileName;
-    }
-
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
     }
 
     public ClientHandler getClientHandler() {

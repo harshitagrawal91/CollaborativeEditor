@@ -11,11 +11,18 @@ import java.io.Serializable;
  *
  * @author harsh
  */
-
-
 public class Message implements Serializable {
-  Identifier position;
+   Identifier position;
   char character;
+  int actualPosition;
+
+    public int getActualPosition() {
+        return actualPosition;
+    }
+
+    public void setActualPosition(int actualPosition) {
+        this.actualPosition = actualPosition;
+    }
 
     public Identifier getPosition() {
         return position;
@@ -31,7 +38,5 @@ public class Message implements Serializable {
 
     public void setCharacter(char character) {
         this.character = character;
-    }
-  
-   
+    } 
 }

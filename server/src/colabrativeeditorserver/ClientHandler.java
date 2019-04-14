@@ -17,23 +17,27 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import clientObjects.ClientInfo;
+import clientObjects.InsertMessage;
 
 /**
  *
  * @author harsh
  */
 public class ClientHandler extends Thread {
-private ObjectInputStream in;
-private ObjectOutputStream out;
-private Socket socket;
-private final int clientId;
-    public ClientHandler(ObjectInputStream in,ObjectOutputStream out,Socket socket,int uniqueID) {
-        this.in=in;
-        this.out=out;
-        this.socket=socket;
-        this.clientId=uniqueID;
-    } 
-    public void run(){
+
+    private ObjectInputStream in;
+    private ObjectOutputStream out;
+    private Socket socket;
+    private final int clientId;
+
+    public ClientHandler(ObjectInputStream in, ObjectOutputStream out, Socket socket, int uniqueID) {
+        this.in = in;
+        this.out = out;
+        this.socket = socket;
+        this.clientId = uniqueID;
+    }
+
+    public void run() {
 //        if(GlobalConstants.getClientMap().get(clientId)==null){
 //             ArrayList<ClientInfo> altemp=new ArrayList<>();
 //             altemp.add(new ClientInfo(this.clientId,"new Document",this));
@@ -43,17 +47,33 @@ private final int clientId;
 //             String docName=altemp.get(0).getFileName();
 //             altemp.add(new ClientInfo(this.clientId,docName,this));         
 //        }
-         try {
-       while(true){
-           
-                Object obj=in.readObject();
-           
-       }
-        
-    } catch (IOException ex) {
-//                Logger.getLogger(ClientHandler.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-//                Logger.getLogger(ClientHandler.class.getName()).log(Level.SEVERE, null, ex);
+        try {
+            while (true) {
+                Object obj = in.readObject();
+                if (obj instanceof InsertMessage) {
+                    GlobalConstants.messageHandler.insertMessageQueue.add((InsertMessage) obj);
+                    if (GlobalConstants.messageHandler.getState().equals(Thread.State.WAITING)) {
+                        synchronized (GlobalConstants.messageHandler) {
+                            GlobalConstants.messageHandler.notify();
+                        }
+                    }
+                }
             }
-}
+
+        } catch (IOException ex) {
+//                Logger.getLogger(ClientHandler.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+//                Logger.getLogger(ClientHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public synchronized void sendMessage(Object msg) {
+        try {
+            out.writeObject(msg);
+            out.flush();
+//			System.out.println("Send message: " + msg + " to Client " + no);
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+    }
 }

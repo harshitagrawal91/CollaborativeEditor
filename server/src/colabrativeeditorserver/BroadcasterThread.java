@@ -5,10 +5,23 @@
  */
 package colabrativeeditorserver;
 
+import clientObjects.InsertMessage;
+import clientObjects.ClientInfo;
+import constants.GlobalConstants;
+
 /**
  *
  * @author harsh
  */
-public class BroadcasterThread {
-    
+public class BroadcasterThread implements Runnable{
+   InsertMessage message;
+    public BroadcasterThread(InsertMessage message) {
+        this.message=message;
+    } 
+    public void run(){
+        for(int clientid : GlobalConstants.clientList.keySet()){
+            ClientInfo client=GlobalConstants.clientList.get(clientid);
+            client.getClientHandler().sendMessage(this.message);
+        }
+    }
 }

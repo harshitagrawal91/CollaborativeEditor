@@ -13,7 +13,12 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 import clientObjects.ClientInfo;
 import clientObjects.Identifier;
-import clientObjects.conf;
+import clientObjects.*;
+import colabrativeeditorserver.BroadcasterThread;
+import colabrativeeditorserver.MessageHandler;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  *
@@ -21,20 +26,16 @@ import clientObjects.conf;
  */
 public class GlobalConstants {
     public static conf configuration;
-    public static HashMap <Long,ArrayList<ClientInfo>> clientMap=new HashMap<>();
+  //  public static HashMap <Long,ArrayList<ClientInfo>> clientMap=new HashMap<>();
+    public static ConcurrentHashMap <Integer,ClientInfo> clientList=new ConcurrentHashMap<Integer,ClientInfo>();
     public static AtomicInteger clientId=new AtomicInteger();
     public static StringBuffer documentName=new StringBuffer("newDocument1");
     public static StringBuffer text=new StringBuffer("harshit");
     public static CopyOnWriteArrayList<Identifier>positionList = new CopyOnWriteArrayList<>();
     public static CopyOnWriteArrayList<Double>doublepositionList = new CopyOnWriteArrayList<>();
-
-    public static HashMap<Long, ArrayList<ClientInfo>> getClientMap() {
-        return clientMap;
-    }
-
-    public static void setClientMap(HashMap<Long,ArrayList<ClientInfo>> clientMap) {
-        GlobalConstants.clientMap = clientMap;
-    }
+    public static BroadcasterThread broadcasterThread;
+    public static MessageHandler messageHandler;
+    public static ExecutorService broadcast = Executors.newFixedThreadPool(50);
 
     public static conf getConfiguration() {
         return configuration;

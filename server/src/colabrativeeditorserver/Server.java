@@ -9,6 +9,7 @@ package colabrativeeditorserver;
  *
  * @author harsh
  */
+import clientObjects.ClientInfo;
 import constants.GlobalConstants;
 import java.io.BufferedInputStream;
 import java.io.FileOutputStream;
@@ -44,6 +45,9 @@ public class Server extends Thread {
                 ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
                 out.flush();
                 ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+                MessageHandler mh=new MessageHandler();
+                GlobalConstants.messageHandler=mh;
+                mh.start();
                 clientInitalizer ci = new clientInitalizer(GlobalConstants.clientId.incrementAndGet(), GlobalConstants.documentName.toString(), GlobalConstants.text
                 ,GlobalConstants.positionList,GlobalConstants.doublepositionList);
                 try {
@@ -53,7 +57,9 @@ public class Server extends Thread {
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }
-                new ClientHandler(in, out, socket, GlobalConstants.clientId.get()).start();
+                ClientHandler ch=new ClientHandler(in, out, socket, GlobalConstants.clientId.get());  
+                GlobalConstants.clientList.put(GlobalConstants.clientId.get(), new ClientInfo(GlobalConstants.clientId.get(),ch));
+                ch.start();
 
             }
 ////            DataOutputStream out = new DataOutputStream(new FileOutputStream(fileName));
