@@ -2,6 +2,8 @@ package EditorUi;
 
 
 
+import clientObjects.Identifier;
+import clientObjects.InsertMessage;
 import constants.GlobalConstants;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -28,15 +30,33 @@ public class EditorClient {
     }
     public void connectToServer(){
         try{
-            Socket socket = new Socket("localhost",port);
-            ObjectOutputStream os=new ObjectOutputStream(socket.getOutputStream());
+            final Socket socket = new Socket("localhost",port);
+          final  ObjectOutputStream os=new ObjectOutputStream(socket.getOutputStream());
             os.flush();
-            ObjectInputStream in=new ObjectInputStream(socket.getInputStream());
+           final  ObjectInputStream in=new ObjectInputStream(socket.getInputStream());
             System.out.print("connected to server");
             GlobalConstants.listener = new Listener(in, os, socket);
             GlobalConstants.listener.start();
-            GlobalConstants.writer = new Writer(in, os, socket);
-            GlobalConstants.writer.start();            
+            Identifier identifier = new Identifier();
+                    identifier.setActualPosition(0);
+                    identifier.setRelativePosition(0);
+                    identifier.setSiteId(GlobalConstants.clientId.get());
+                    //GlobalConstants.positionList.add(0, identifier);
+                    InsertMessage im = new InsertMessage();
+                    im.setPosition(identifier);
+                    im.setCharacter('c');
+                    im.setActualPosition(0);
+                    try {
+            os.writeObject(im);
+            os.flush();
+//			System.out.println("Send message: " + msg + " to Client " + no);
+        } catch (IOException ioException) {
+          System.out.print("error");
+        }
+            Writer w=new Writer(in, os, socket);
+            w.start();
+            GlobalConstants.writer = w;
+            //GlobalConstants.writer.start();            
         }catch(IOException e){
             
         }
