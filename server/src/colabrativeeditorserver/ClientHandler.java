@@ -47,16 +47,13 @@ public class ClientHandler extends Thread {
 //             String docName=altemp.get(0).getFileName();
 //             altemp.add(new ClientInfo(this.clientId,docName,this));         
 //        }
-         System.out.print("inside client handler");
         try {
             while (true) {
-                System.out.print("inside client handler");
                 Object obj = in.readObject();
-                 System.out.print("received message");
+//                 System.out.print("received message\n");
                 if (obj instanceof InsertMessage) {
-                    System.out.print("adding");
                     GlobalConstants.messageHandler.insertMessageQueue.add((InsertMessage) obj);
-                    System.out.print("added");
+//                    System.out.print("added");
                     if (GlobalConstants.messageHandler.getState().equals(Thread.State.WAITING)) {
                         synchronized (GlobalConstants.messageHandler) {
                             GlobalConstants.messageHandler.notify();

@@ -226,6 +226,11 @@ public class EditorWindowFrame extends javax.swing.JFrame {
         //need to pass object of type write Queue Message
         writeQueueMessage msg = new writeQueueMessage(position, ch);
         GlobalConstants.writer.message.add(msg);
+        if (GlobalConstants.writer.getState().equals(Thread.State.WAITING)) {
+                        synchronized (GlobalConstants.writer) {
+                            GlobalConstants.writer.notify();
+                        }
+                    }
     }//GEN-LAST:event_jTextArea1KeyPressed
 
     private void jTextArea1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea1KeyReleased

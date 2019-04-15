@@ -37,7 +37,7 @@ public class Writer extends Thread {
     public void run() {
         System.out.print("in writer.java\n");
         while (true) {
-            while (!message.isEmpty()) {
+            if (!message.isEmpty()) {
             	System.out.println("value in message");
                 writeQueueMessage m = message.poll();
                 int pos = m.getPosition();
@@ -85,6 +85,14 @@ public class Writer extends Thread {
                         im.setCharacter(ch);
                         im.setActualPosition(pos);
                         sendMessage(im);
+                    }
+                }
+            }else{
+                synchronized (this) {
+                    try {
+                        wait();
+                    } catch (InterruptedException ex) {
+
                     }
                 }
             }
