@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  */
 /**
  *
- * @author dell
+ * @author Kunal
  */
 public class WindowCreator extends Thread {
 
