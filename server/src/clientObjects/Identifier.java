@@ -11,10 +11,18 @@ import java.io.Serializable;
  *
  * @author harsh
  */
-public class Identifier implements Serializable {
-
-    double relativePosition;
+public class Identifier implements Serializable{
+   double relativePosition;
     int siteId;
+    int actualPosition;
+
+    public int getActualPosition() {
+        return actualPosition;
+    }
+
+    public void setActualPosition(int actualPosition) {
+        this.actualPosition = actualPosition;
+    }
 
     public double getRelativePosition() {
         return relativePosition;

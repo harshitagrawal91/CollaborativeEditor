@@ -25,9 +25,9 @@ import clientObjects.InsertMessage;
  */
 public class ClientHandler extends Thread {
 
-    private ObjectInputStream in;
-    private ObjectOutputStream out;
-    private Socket socket;
+    private final ObjectInputStream in;
+    private final ObjectOutputStream out;
+    private final Socket socket;
     private final int clientId;
 
     public ClientHandler(ObjectInputStream in, ObjectOutputStream out, Socket socket, int uniqueID) {
@@ -47,11 +47,16 @@ public class ClientHandler extends Thread {
 //             String docName=altemp.get(0).getFileName();
 //             altemp.add(new ClientInfo(this.clientId,docName,this));         
 //        }
+         System.out.print("inside client handler");
         try {
             while (true) {
+                System.out.print("inside client handler");
                 Object obj = in.readObject();
+                 System.out.print("received message");
                 if (obj instanceof InsertMessage) {
+                    System.out.print("adding");
                     GlobalConstants.messageHandler.insertMessageQueue.add((InsertMessage) obj);
+                    System.out.print("added");
                     if (GlobalConstants.messageHandler.getState().equals(Thread.State.WAITING)) {
                         synchronized (GlobalConstants.messageHandler) {
                             GlobalConstants.messageHandler.notify();
@@ -61,9 +66,9 @@ public class ClientHandler extends Thread {
             }
 
         } catch (IOException ex) {
-//                Logger.getLogger(ClientHandler.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.print("IO Exception"+ex);
         } catch (ClassNotFoundException ex) {
-//                Logger.getLogger(ClientHandler.class.getName()).log(Level.SEVERE, null, ex);
+               System.out.print("Class not found Exception"+ex.getStackTrace());
         }
     }
 

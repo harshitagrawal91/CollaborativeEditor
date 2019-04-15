@@ -25,6 +25,7 @@ public class MessageHandler extends Thread {
                 InsertMessage message = insertMessageQueue.poll();
                 double relativePos=message.getPosition().getRelativePosition();
                 int actualPos=message.getActualPosition();
+                System.out.print("\n"+message.getCharacter());
                 int index=GlobalConstants.doublepositionList.indexOf(relativePos);
                 if(index ==-1){
                     try{
@@ -40,7 +41,7 @@ public class MessageHandler extends Thread {
                     }catch(IndexOutOfBoundsException i){
                      GlobalConstants.doublepositionList.add(actualPos, relativePos);
                      GlobalConstants.positionList.add(actualPos,message.getPosition());
-                     GlobalConstants.text.insert(actualPos-1, message.getCharacter());
+                     GlobalConstants.text.insert(actualPos, message.getCharacter());
                      GlobalConstants.broadcast.execute(new BroadcasterThread(message));
                      
                     }
