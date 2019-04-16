@@ -52,7 +52,7 @@ public class ClientHandler extends Thread {
                 Object obj = in.readObject();
 //                 System.out.print("received message\n");
                 if (obj instanceof SyncMessage) {
-                    GlobalConstants.messageHandler.insertMessageQueue.add((SyncMessage) obj);
+                    GlobalConstants.messageHandler.incomingMessageQueue.add((SyncMessage) obj);
 //                    System.out.print("added");
                     if (GlobalConstants.messageHandler.getState().equals(Thread.State.WAITING)) {
                         synchronized (GlobalConstants.messageHandler) {
