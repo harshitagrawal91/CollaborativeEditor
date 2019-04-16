@@ -143,6 +143,27 @@ public class EditorWindowFrame extends javax.swing.JFrame {
 		sw1.execute();
 	}
 
+	public void deleteCharacter(int pos) {
+
+		SwingWorker sw1 = new SwingWorker() {
+
+			@Override
+			protected Boolean doInBackground() throws Exception {
+
+				jTextArea1.remove(pos);
+				return true;
+			}
+
+			@Override
+			protected void done() {
+
+			}
+		};
+
+		// executes the swingworker on worker thread
+		sw1.execute();
+	}
+	
 	public void insertCharacter(String s, int pos) {
 
 		SwingWorker sw1 = new SwingWorker() {
