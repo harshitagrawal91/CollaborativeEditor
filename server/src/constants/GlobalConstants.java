@@ -25,17 +25,33 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author harsh
  */
 public class GlobalConstants {
+
     public static conf configuration;
-  //  public static HashMap <Long,ArrayList<ClientInfo>> clientMap=new HashMap<>();
-    public static ConcurrentHashMap <Integer,ClientInfo> clientList=new ConcurrentHashMap<Integer,ClientInfo>();
-    public static AtomicInteger clientId=new AtomicInteger();
-    public static StringBuffer documentName=new StringBuffer("newDocument1");
-    public static StringBuffer text=new StringBuffer("");
-    public static CopyOnWriteArrayList<Identifier>positionList = new CopyOnWriteArrayList<>();
-    public static CopyOnWriteArrayList<Double>doublepositionList = new CopyOnWriteArrayList<>();
+    //  public static HashMap <Long,ArrayList<ClientInfo>> clientMap=new HashMap<>();
+    public static ConcurrentHashMap<Integer, ClientInfo> clientList = new ConcurrentHashMap<Integer, ClientInfo>();
+    public static AtomicInteger clientId = new AtomicInteger();
+    public static StringBuffer documentName = new StringBuffer("newDocument1");
+    public static StringBuffer text = new StringBuffer("");
+    public static CopyOnWriteArrayList<Identifier> positionList = new CopyOnWriteArrayList<>();
+    public static CopyOnWriteArrayList<Double> doublepositionList = new CopyOnWriteArrayList<>();
     public static BroadcasterThread broadcasterThread;
     public static MessageHandler messageHandler;
     public static ExecutorService broadcast = Executors.newFixedThreadPool(50);
+
+    public static enum messageType {
+        DELETE((byte) 0),
+        INSERT((byte) 1);
+
+        private final byte value;
+
+        private messageType(byte val) {
+            this.value = val;
+        }
+
+        public byte getValue() {
+            return value;
+        }
+    }
 
     public static conf getConfiguration() {
         return configuration;
@@ -43,6 +59,6 @@ public class GlobalConstants {
 
     public static void setConfiguration(conf configuration) {
         GlobalConstants.configuration = configuration;
-        
+
     }
 }

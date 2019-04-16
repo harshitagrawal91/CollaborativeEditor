@@ -32,4 +32,18 @@ public class GlobalConstants {
     public static Writer writer;
     public static Listener listener;
 
+    public static enum messageType {
+        DELETE((byte) 0),
+        INSERT((byte) 1);
+
+        private final byte value;
+
+        private messageType(byte val) {
+            this.value = val;
+        }
+
+        public byte getValue() {
+            return value;
+        }
+    }
 }

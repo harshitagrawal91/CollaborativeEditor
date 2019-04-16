@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import clientObjects.ClientInfo;
-import clientObjects.InsertMessage;
+import clientObjects.SyncMessage;
 
 /**
  *
@@ -51,8 +51,8 @@ public class ClientHandler extends Thread {
             while (true) {
                 Object obj = in.readObject();
 //                 System.out.print("received message\n");
-                if (obj instanceof InsertMessage) {
-                    GlobalConstants.messageHandler.insertMessageQueue.add((InsertMessage) obj);
+                if (obj instanceof SyncMessage) {
+                    GlobalConstants.messageHandler.insertMessageQueue.add((SyncMessage) obj);
 //                    System.out.print("added");
                     if (GlobalConstants.messageHandler.getState().equals(Thread.State.WAITING)) {
                         synchronized (GlobalConstants.messageHandler) {

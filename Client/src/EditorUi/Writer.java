@@ -1,7 +1,7 @@
 package EditorUi;
 
 import clientObjects.Identifier;
-import clientObjects.InsertMessage;
+import clientObjects.SyncMessage;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -55,7 +55,7 @@ public class Writer extends Thread {
                     identifier.setRelativePosition(pos);
                     identifier.setSiteId(GlobalConstants.clientId.get());
                     GlobalConstants.positionList.add(pos, identifier);
-                    InsertMessage im = new InsertMessage();
+                    SyncMessage im = new SyncMessage();
                     im.setPosition(identifier);
                     im.setCharacter(ch);
                     im.setActualPosition(pos);
@@ -71,7 +71,7 @@ public class Writer extends Thread {
                         GlobalConstants.positionList.add(pos, identifier);
                         GlobalConstants.doublepositionList.add(pos, relative);
                         GlobalConstants.text.insert(pos, ch);
-                        InsertMessage im = new InsertMessage();
+                        SyncMessage im = new SyncMessage();
                         im.setPosition(identifier);
                         im.setCharacter(ch);
                         im.setActualPosition(pos);
@@ -85,7 +85,7 @@ public class Writer extends Thread {
                         GlobalConstants.positionList.add(pos, identifier);
                         GlobalConstants.doublepositionList.add(pos, relative);
                         GlobalConstants.text.insert(pos, ch);
-                        InsertMessage im = new InsertMessage();
+                        SyncMessage im = new SyncMessage();
                         im.setPosition(identifier);
                         im.setCharacter(ch);
                         im.setActualPosition(pos);

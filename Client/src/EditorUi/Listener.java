@@ -1,7 +1,7 @@
 package EditorUi;
 
 import clientObjects.Identifier;
-import clientObjects.InsertMessage;
+import clientObjects.SyncMessage;
 import constants.GlobalConstants;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -30,7 +30,7 @@ public class Listener extends Thread {
     ObjectInputStream in;
     ObjectOutputStream out;
     Socket s;
-    HashMap<Double, InsertMessage> messageBuffer = new HashMap<>();
+    HashMap<Double, SyncMessage> messageBuffer = new HashMap<>();
 
     Listener(ObjectInputStream in, ObjectOutputStream out, Socket s) {
         this.in = in;
@@ -51,8 +51,8 @@ public class Listener extends Thread {
                     GlobalConstants.clientId.set(clientInit.getClientId());
                     GlobalConstants.positionList.addAll(clientInit.getPositionList());
                     GlobalConstants.doublepositionList.addAll(clientInit.getDoublePositionList());
-                } else if (obj instanceof InsertMessage) {
-                    InsertMessage im = (InsertMessage) obj;
+                } else if (obj instanceof SyncMessage) {
+                    SyncMessage im = (SyncMessage) obj;
                     handleInsertMessage(im);
                 }
             } catch (IOException ex) {
@@ -63,7 +63,7 @@ public class Listener extends Thread {
         }
     }
 
-    private void handleInsertMessage(InsertMessage im) {
+    private void handleInsertMessage(SyncMessage im) {
         if(im.getActualPosition()==0 && im.isUpdate()==true){
             
         }

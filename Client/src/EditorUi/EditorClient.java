@@ -3,7 +3,7 @@ package EditorUi;
 
 
 import clientObjects.Identifier;
-import clientObjects.InsertMessage;
+import clientObjects.SyncMessage;
 import constants.GlobalConstants;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

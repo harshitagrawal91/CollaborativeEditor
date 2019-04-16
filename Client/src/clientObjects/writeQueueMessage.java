@@ -10,12 +10,23 @@ package clientObjects;
  * @author dell
  */
 public class writeQueueMessage {
+
     int position;
     String ch;
+    byte type;
 
-    public writeQueueMessage(int position, String ch) {
+    public byte getType() {
+        return type;
+    }
+
+    public void setType(byte type) {
+        this.type = type;
+    }
+
+    public writeQueueMessage( byte type,int position, String ch) {
         this.position = position;
         this.ch = ch;
+        this.type=type;
     }
 
     public int getPosition() {

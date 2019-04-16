@@ -190,7 +190,7 @@ public class EditorWindowFrame extends javax.swing.JFrame {
         String ch=Character.toString(c);
         //String ch = evt.getKeyText(evt.getKeyCode());
         //need to pass object of type write Queue Message
-        writeQueueMessage msg = new writeQueueMessage(position, ch);
+        writeQueueMessage msg = new writeQueueMessage(GlobalConstants.messageType.INSERT.getValue(),position, ch);
         GlobalConstants.writer.message.add(msg);
         if (GlobalConstants.writer.getState().equals(Thread.State.WAITING)) {
                         synchronized (GlobalConstants.writer) {

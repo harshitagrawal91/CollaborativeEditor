@@ -5,7 +5,7 @@
  */
 package colabrativeeditorserver;
 
-import clientObjects.InsertMessage;
+import clientObjects.SyncMessage;
 import clientObjects.ClientInfo;
 import constants.GlobalConstants;
 
@@ -14,8 +14,8 @@ import constants.GlobalConstants;
  * @author harsh
  */
 public class BroadcasterThread implements Runnable{
-   InsertMessage message;
-    public BroadcasterThread(InsertMessage message) {
+   SyncMessage message;
+    public BroadcasterThread(SyncMessage message) {
         this.message=message;
     } 
     public void run(){

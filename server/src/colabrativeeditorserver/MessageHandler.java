@@ -7,7 +7,7 @@ package colabrativeeditorserver;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 import clientObjects.Identifier;
-import clientObjects.InsertMessage;
+import clientObjects.SyncMessage;
 import constants.GlobalConstants;
 
 /**
@@ -16,13 +16,13 @@ import constants.GlobalConstants;
  */
 public class MessageHandler extends Thread {
 
-    public ConcurrentLinkedQueue<InsertMessage> insertMessageQueue = new ConcurrentLinkedQueue<InsertMessage>();
-//    public ConcurrentLinkedQueue<DeleteMessage> deletemessageQueue = new ConcurrentLinkedQueue<DeleteMessage>();
+    public ConcurrentLinkedQueue<SyncMessage> insertMessageQueue = new ConcurrentLinkedQueue<SyncMessage>();
+    public ConcurrentLinkedQueue<SyncMessage> deletemessageQueue = new ConcurrentLinkedQueue<SyncMessage>();
 
     public void run() {
         while (true) {
             if (!insertMessageQueue.isEmpty()) {
-                InsertMessage message = insertMessageQueue.poll();
+                SyncMessage message = insertMessageQueue.poll();
                 double relativePos = message.getPosition().getRelativePosition();
                 int actualPos = message.getActualPosition();
                 int index = GlobalConstants.doublepositionList.indexOf(relativePos);
@@ -53,7 +53,7 @@ public class MessageHandler extends Thread {
                         GlobalConstants.text.insert(actualPos, message.getCharacter());
                         GlobalConstants.doublepositionList.set(actualPos + 1, relativePos);
                         GlobalConstants.positionList.get(actualPos + 1).setRelativePosition(newRelativePos);
-                        InsertMessage update = new InsertMessage();
+                        SyncMessage update = new SyncMessage();
                         update.setActualPosition(actualPos);
                         update.setUpdate(true);
                         Identifier id = new Identifier();
