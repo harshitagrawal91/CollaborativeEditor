@@ -216,14 +216,16 @@ public class EditorWindowFrame extends javax.swing.JFrame {
 
             @Override
             protected Boolean doInBackground() throws Exception {
-
-                writingArea.remove(pos);
+            StringBuffer s=new StringBuffer(writingArea.getText());
+                s.deleteCharAt(pos);
+                writingArea.setText(s.toString());
                 return true;
             }
 
             @Override
             protected void done() {
-
+                writingArea.revalidate();
+                writingArea.repaint();
             }
         };
 
@@ -251,7 +253,7 @@ public class EditorWindowFrame extends javax.swing.JFrame {
         String ch = Character.toString(c);
         if (evt.getKeyCode() == 8) {
             writeQueueMessage msg = new writeQueueMessage(GlobalConstants.messageType.DELETE.getValue(), position - 1,
-                    ch);
+                    Character.toString(' '));
             GlobalConstants.writer.message.add(msg);
         } else {
             // String ch = evt.getKeyText(evt.getKeyCode());
