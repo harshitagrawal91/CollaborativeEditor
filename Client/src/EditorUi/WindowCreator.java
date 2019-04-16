@@ -31,9 +31,8 @@ public class WindowCreator extends Thread {
                 mainWin.invoke();
                 break;
             case EDITOR:
-                EditorWindowFrame editWin = null;
                 try {
-                    editWin = new EditorWindowFrame();
+                	EditorWindowFrame editWin = new EditorWindowFrame();
                     editWin.setVisible(true);
                     GlobalConstants.editWin=editWin;
                     editWin.setInitial();                    //Is it right to use get and get and increment in the same scope????????

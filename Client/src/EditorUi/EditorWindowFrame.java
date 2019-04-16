@@ -81,7 +81,7 @@ public class EditorWindowFrame extends javax.swing.JFrame {
 
 		fixedUniqueIdtag.setText("Unique ID: ");
 
-		editableUniqueIdTag.setText("Unassigned");
+		//editableUniqueIdTag.setText("Unassigned");
 
 		updateDocumentTag.setText("Update");
 		updateDocumentTag.addActionListener(new java.awt.event.ActionListener() {
@@ -146,7 +146,7 @@ public class EditorWindowFrame extends javax.swing.JFrame {
 			@Override
 			protected Boolean doInBackground() throws Exception {
 
-				jLabel3.setText(GlobalConstants.clientId.toString());
+				editableUniqueIdTag.setText(GlobalConstants.clientId.toString());
 				System.out.println(GlobalConstants.clientId);
 				documentName.setForeground(Color.BLACK);
 				documentName.setText(GlobalConstants.documentName.toString());
