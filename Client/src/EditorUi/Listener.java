@@ -138,7 +138,7 @@ public class Listener extends Thread {
 				GlobalConstants.doublepositionList.add(actualPos, relativePos);
 				GlobalConstants.positionList.add(actualPos, im.getPosition());
 				GlobalConstants.text.insert(actualPos, im.getCharacter());
-				GlobalConstants.editWin.insertCharacter(Character.toString(im.getCharacter()), actualPos);
+				GlobalConstants.editWin.insertCharInWritingArea(Character.toString(im.getCharacter()), actualPos);
 				if (deletebuffer.contains(im.getPosition())) {
 					handleDeleteMessage(im);
 				}
