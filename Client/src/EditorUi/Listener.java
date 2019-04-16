@@ -57,9 +57,10 @@ public class Listener extends Thread {
 					GlobalConstants.doublepositionList.addAll(clientInit.getDoublePositionList());
 				} else if (obj instanceof SyncMessage) {
 					SyncMessage im = (SyncMessage) obj;
+                                        System.out.println("-------"+im.getType());
 					if (im.getType() == GlobalConstants.messageType.INSERT.getValue()) {
 						handleInsertMessage(im);
-					} else if (im.getType() == GlobalConstants.messageType.DELETE.getValue()) {
+					} else if (im.getType() == GlobalConstants.messageType.DELETE.getValue() && im.getUpdateWindowSiteId()!=GlobalConstants.clientId.get()) {
 						handleDeleteMessage(im);
 					}
 				}
@@ -73,14 +74,18 @@ public class Listener extends Thread {
 
 	private void handleDeleteMessage(SyncMessage im) {
 		// TODO Auto-generated method stub
-		int index = GlobalConstants.positionList.indexOf(im.getPosition());
-		if (index == -1) {
-			deletebuffer.put(im.getPosition(), null);
-		}
+                System.out.println("inside listener delete");
+		int index = GlobalConstants.doublepositionList.indexOf(im.getPosition().getRelativePosition());
+		if (index == -1 || GlobalConstants.positionList.get(index).getSiteId()!=im.getPosition().getSiteId() ) {
+			deletebuffer.put(im.getPosition(), -1);
+		}else{
 		GlobalConstants.doublepositionList.remove(index);
 		GlobalConstants.positionList.remove(index);
 		GlobalConstants.text.deleteCharAt(index);
+                System.out.println(GlobalConstants.text);
 		GlobalConstants.editWin.deleteCharacter(index);
+                }
+               // System.out.println(Glo);
 	}
 
 	private void handleInsertMessage(SyncMessage im) {

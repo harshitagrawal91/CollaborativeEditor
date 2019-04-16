@@ -18,6 +18,15 @@ public class SyncMessage implements Serializable {
     int actualPosition;
     byte type;
     boolean update = false;
+    int updateWindowSiteId;
+
+    public int getUpdateWindowSiteId() {
+        return updateWindowSiteId;
+    }
+
+    public void setUpdateWindowSiteId(int updateWindowSiteId) {
+        this.updateWindowSiteId = updateWindowSiteId;
+    }
 
     public byte getType() {
         return type;

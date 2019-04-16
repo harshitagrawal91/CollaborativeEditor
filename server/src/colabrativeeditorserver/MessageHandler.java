@@ -27,8 +27,10 @@ public class MessageHandler extends Thread {
             if (!incomingMessageQueue.isEmpty()) {
                 SyncMessage message = incomingMessageQueue.poll();
                 if (message.getType() == GlobalConstants.messageType.INSERT.getValue()) {
+                     System.out.println("insert"+message.getType());
                     handleInsert(message);
                 } else if (message.getType() == GlobalConstants.messageType.DELETE.getValue()) {
+                     System.out.println("delete"+message.getType());
                     handleDelete(message);
                 }
             } else {
@@ -44,18 +46,21 @@ public class MessageHandler extends Thread {
     }
 
     private void handleDelete(SyncMessage message) {
-        int index = GlobalConstants.positionList.indexOf(message.getPosition());
-        if (index == -1) {
-            deletebuffer.put( message.getPosition(),null);
+         System.out.println("delete");
+        int index = GlobalConstants.doublepositionList.indexOf(message.getPosition().getRelativePosition());
+        if (index == -1 || GlobalConstants.positionList.get(index).getSiteId()!=message.getPosition().getSiteId()) {
+            deletebuffer.put( message.getPosition(),-1);
         } else {
             GlobalConstants.doublepositionList.remove(index);
             GlobalConstants.positionList.remove(index);
             GlobalConstants.text.deleteCharAt(index);
             GlobalConstants.broadcast.execute(new BroadcasterThread(message));
         }
+         System.out.println(GlobalConstants.text);
     }
 
     private void handleInsert(SyncMessage message) {
+         System.out.println("insert");
         double relativePos = message.getPosition().getRelativePosition();
         int actualPos = message.getActualPosition();
         int index = GlobalConstants.doublepositionList.indexOf(relativePos);
@@ -112,7 +117,7 @@ public class MessageHandler extends Thread {
                 Double next = GlobalConstants.doublepositionList.get(actualPos + 1);
                 double newRelativePos = (relativePos + next) / 2;
                 message.getPosition().setRelativePosition(newRelativePos);
-                message.getPosition().setActualPosition(actualPos + 1);
+                message.setActualPosition(actualPos + 1);
                 GlobalConstants.doublepositionList.add(actualPos + 1, newRelativePos);
                 GlobalConstants.positionList.add(actualPos + 1, message.getPosition());
                 GlobalConstants.text.insert(actualPos + 1, message.getCharacter());
