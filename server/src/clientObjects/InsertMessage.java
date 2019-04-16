@@ -11,12 +11,20 @@ import java.io.Serializable;
  *
  * @author harsh
  */
-
-
 public class InsertMessage implements Serializable {
-  Identifier position;
-  char character;
-  int actualPosition;
+
+    Identifier position;
+    char character;
+    int actualPosition;
+    boolean update = false;
+
+    public boolean isUpdate() {
+        return update;
+    }
+
+    public void setUpdate(boolean update) {
+        this.update = update;
+    }
 
     public int getActualPosition() {
         return actualPosition;
@@ -41,6 +49,5 @@ public class InsertMessage implements Serializable {
     public void setCharacter(char character) {
         this.character = character;
     }
-  
-   
+
 }

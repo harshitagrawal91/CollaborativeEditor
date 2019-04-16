@@ -165,6 +165,26 @@ public class EditorWindowFrame extends javax.swing.JFrame {
         // executes the swingworker on worker thread 
         sw1.execute();
     }
+     public void insertCharacter(String s,int pos) {
+
+        SwingWorker sw1 = new SwingWorker() {
+
+            @Override
+            protected Boolean doInBackground() throws Exception {
+                
+                jTextArea1.insert(s, pos);
+                return true;
+            }
+
+            @Override
+            protected void done() {
+                
+            }
+        };
+
+        // executes the swingworker on worker thread 
+        sw1.execute();
+    }
     
     
     private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
@@ -201,7 +221,9 @@ public class EditorWindowFrame extends javax.swing.JFrame {
 
     private void jTextArea1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea1KeyPressed
         int position = jTextArea1.getSelectionStart();
-        String ch = evt.getKeyText(evt.getKeyCode());
+        char c=evt.getKeyChar();
+        String ch=Character.toString(c);
+        //String ch = evt.getKeyText(evt.getKeyCode());
         //need to pass object of type write Queue Message
         writeQueueMessage msg = new writeQueueMessage(position, ch);
         GlobalConstants.writer.message.add(msg);

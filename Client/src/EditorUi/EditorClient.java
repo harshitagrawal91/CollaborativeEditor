@@ -44,25 +44,6 @@ public class EditorClient {
             catch(Exception e) {
             	e.getMessage();
             }
-//			commented by Akshay on April 14 6:52am
-//            Identifier identifier = new Identifier();
-//            identifier.setActualPosition(0);
-//            identifier.setRelativePosition(0);
-//            identifier.setSiteId(GlobalConstants.clientId.get());
-//            System.out.println("test"+GlobalConstants.clientId.get());
-//            System.out.println("test"+identifier.getSiteId());
-//            //GlobalConstants.positionList.add(0, identifier);
-//            InsertMessage im = new InsertMessage();
-//            im.setPosition(identifier);
-//            im.setCharacter('c');
-//            im.setActualPosition(0);
-//            try {
-//	            os.writeObject(im);
-//	            os.flush();
-//	//			System.out.println("Send message: " + msg + " to Client " + no);
-//	        } catch (IOException ioException) {
-//	          System.out.print("error");
-//	        }
             Writer w=new Writer(in, os, socket);
             w.start();
             GlobalConstants.writer = w;

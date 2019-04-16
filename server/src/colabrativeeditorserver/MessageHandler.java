@@ -25,7 +25,6 @@ public class MessageHandler extends Thread {
                 InsertMessage message = insertMessageQueue.poll();
                 double relativePos = message.getPosition().getRelativePosition();
                 int actualPos = message.getActualPosition();
-                //System.out.print(message.getCharacter());
                 int index = GlobalConstants.doublepositionList.indexOf(relativePos);
                 if (index == -1) {
                     try {
@@ -46,17 +45,38 @@ public class MessageHandler extends Thread {
 
                     }
                 } else {
-                    Double next = GlobalConstants.doublepositionList.get(actualPos + 1);
-                    double newRelativePos = (relativePos + next) / 2;
-                    message.getPosition().setRelativePosition(newRelativePos);
-                    GlobalConstants.doublepositionList.add(actualPos + 1, newRelativePos);
-                    GlobalConstants.positionList.add(actualPos + 1, message.getPosition());
-                    GlobalConstants.text.insert(actualPos + 1, message.getCharacter());
-                    GlobalConstants.broadcast.execute(new BroadcasterThread(message));
+                    if (actualPos == 0) {
+                        Double next = GlobalConstants.doublepositionList.get(actualPos + 1);
+                        double newRelativePos = (relativePos + next) / 2;
+                        GlobalConstants.doublepositionList.add(actualPos, relativePos);
+                        GlobalConstants.positionList.add(actualPos, message.getPosition());
+                        GlobalConstants.text.insert(actualPos, message.getCharacter());
+                        GlobalConstants.doublepositionList.set(actualPos + 1, relativePos);
+                        GlobalConstants.positionList.get(actualPos + 1).setRelativePosition(newRelativePos);
+                        InsertMessage update = new InsertMessage();
+                        update.setActualPosition(actualPos);
+                        update.setUpdate(true);
+                        Identifier id = new Identifier();
+                        id.setRelativePosition(newRelativePos);
+                        id.setSiteId(message.getPosition().getSiteId());
+                        update.setPosition(id);
+                        GlobalConstants.broadcast.execute(new BroadcasterThread(update));
+                        GlobalConstants.broadcast.execute(new BroadcasterThread(message));
+
+                        
+                    } else {
+                        Double next = GlobalConstants.doublepositionList.get(actualPos + 1);
+                        double newRelativePos = (relativePos + next) / 2;
+                        message.getPosition().setRelativePosition(newRelativePos);
+                        message.getPosition().setActualPosition(actualPos + 1);
+                        GlobalConstants.doublepositionList.add(actualPos + 1, newRelativePos);
+                        GlobalConstants.positionList.add(actualPos + 1, message.getPosition());
+                        GlobalConstants.text.insert(actualPos + 1, message.getCharacter());
+                        GlobalConstants.broadcast.execute(new BroadcasterThread(message));
+                    }
                 }
-                 System.out.println(GlobalConstants.text);
-            } //            else if(false){
-            //            }
+                System.out.println(GlobalConstants.text);
+            } 
             else {
                 synchronized (this) {
                     try {

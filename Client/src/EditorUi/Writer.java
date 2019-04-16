@@ -42,6 +42,11 @@ public class Writer extends Thread {
                 writeQueueMessage m = message.poll();
                 int pos = m.getPosition();
                 char ch = m.getCh().charAt(0);
+                int ascii=(int)ch;
+                if(ascii==13 ||ascii==10 || ascii>=32 && ascii<=126 ){
+                    if(ascii==13 ||ascii==10){
+                        ch='\n';
+                    }
                 if (pos == 0) {
                     GlobalConstants.doublepositionList.add(pos, (double) pos);
                     GlobalConstants.text.insert(pos, ch);
@@ -87,6 +92,7 @@ public class Writer extends Thread {
                         sendMessage(im);
                     }
                 }
+            }
             }else{
                 synchronized (this) {
                     try {
