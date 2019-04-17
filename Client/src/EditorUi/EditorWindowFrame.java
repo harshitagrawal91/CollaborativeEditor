@@ -7,6 +7,8 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.SwingWorker;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -42,7 +44,11 @@ public class EditorWindowFrame extends javax.swing.JFrame {
 		jScrollPane1 = new javax.swing.JScrollPane();
 		writingArea = new javax.swing.JTextArea();
 		fixedDocumentNameTag = new javax.swing.JLabel();
-		saveButton = new javax.swing.JButton();
+		resetButton = new javax.swing.JButton();
+		resetButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		fixedUniqueIdtag = new javax.swing.JLabel();
 		jLabel3 = new javax.swing.JLabel();
 		editableUniqueIdTag = new javax.swing.JLabel();
@@ -77,7 +83,7 @@ public class EditorWindowFrame extends javax.swing.JFrame {
 
 		fixedDocumentNameTag.setText("Document Name");
 
-		saveButton.setText("Save");
+		resetButton.setText("Reset");
 
 		fixedUniqueIdtag.setText("Unique ID: ");
 
@@ -102,7 +108,7 @@ public class EditorWindowFrame extends javax.swing.JFrame {
 								.addComponent(jScrollPane1)
 								.addGroup(layout.createSequentialGroup()
 										.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-												.addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 117,
+												.addComponent(resetButton, javax.swing.GroupLayout.PREFERRED_SIZE, 117,
 														javax.swing.GroupLayout.PREFERRED_SIZE)
 												.addGroup(layout.createSequentialGroup().addComponent(fixedUniqueIdtag)
 														.addPreferredGap(
@@ -134,7 +140,7 @@ public class EditorWindowFrame extends javax.swing.JFrame {
 										.addComponent(updateDocumentTag)))
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
 						.addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
-						.addGap(1, 1, 1).addComponent(saveButton).addGap(8, 8, 8)));
+						.addGap(1, 1, 1).addComponent(resetButton).addGap(8, 8, 8)));
 
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
@@ -343,7 +349,7 @@ public class EditorWindowFrame extends javax.swing.JFrame {
 	private javax.swing.JLabel fixedUniqueIdtag;
 	private javax.swing.JLabel jLabel3;
 	private javax.swing.JScrollPane jScrollPane1;
-	private javax.swing.JButton saveButton;
+	private javax.swing.JButton resetButton;
 	private javax.swing.JButton updateDocumentTag;
 	public javax.swing.JTextArea writingArea;
 	// End of variables declaration//GEN-END:variables
