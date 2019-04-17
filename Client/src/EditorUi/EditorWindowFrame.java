@@ -243,7 +243,7 @@ public class EditorWindowFrame extends javax.swing.JFrame {
 		}
 	}// GEN-LAST:event_writingAreaFocusLost
 
-	private void writingAreaKeyPressed(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_writingAreaKeyPressed
+	public void writingAreaKeyPressed(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_writingAreaKeyPressed
 		int position = writingArea.getSelectionStart();
 		int endPosition = writingArea.getSelectionEnd();
 		char c = evt.getKeyChar();
@@ -253,19 +253,19 @@ public class EditorWindowFrame extends javax.swing.JFrame {
 			if (position == endPosition) {
 				writeQueueMessage msg = new writeQueueMessage(GlobalConstants.messageType.DELETE.getValue(),
 						position - 1, Character.toString(' '));
-				GlobalConstants.writer.message.add(msg);
+				GlobalConstants.writer.getMessage().add(msg);
 			} else if (position != endPosition && endPosition > position) {
 				for (int i = position; i < endPosition; i++) {
 					writeQueueMessage msg = new writeQueueMessage(GlobalConstants.messageType.DELETE.getValue(),
 							position, Character.toString(' '));
-					GlobalConstants.writer.message.add(msg);
+					GlobalConstants.writer.getMessage().add(msg);
 				}
 			}
 		} else {
 			// String ch = evt.getKeyText(evt.getKeyCode());
 			// need to pass object of type write Queue Message
 			writeQueueMessage msg = new writeQueueMessage(GlobalConstants.messageType.INSERT.getValue(), position, ch);
-			GlobalConstants.writer.message.add(msg);
+			GlobalConstants.writer.getMessage().add(msg);
 		}
 		if (GlobalConstants.writer.getState().equals(Thread.State.WAITING)) {
 			synchronized (GlobalConstants.writer) {
@@ -337,15 +337,15 @@ public class EditorWindowFrame extends javax.swing.JFrame {
 	}
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables
-	private java.awt.TextField documentName;
-	private javax.swing.JLabel editableUniqueIdTag;
+	public java.awt.TextField documentName;
+	public javax.swing.JLabel editableUniqueIdTag;
 	private javax.swing.JLabel fixedDocumentNameTag;
 	private javax.swing.JLabel fixedUniqueIdtag;
 	private javax.swing.JLabel jLabel3;
 	private javax.swing.JScrollPane jScrollPane1;
 	private javax.swing.JButton saveButton;
 	private javax.swing.JButton updateDocumentTag;
-	private javax.swing.JTextArea writingArea;
+	public javax.swing.JTextArea writingArea;
 	// End of variables declaration//GEN-END:variables
 	Scanner scanner;
 	int frameID;

@@ -18,19 +18,20 @@ import java.util.logging.Logger;
  * @author Kunal
  */
 public class WindowCreator extends Thread {
-
-    public WindowCreator(windowType wType) {
-        this.wType = wType;
+	
+	Boolean windowSelector;
+	
+	public WindowCreator(boolean val) {
+        this.windowSelector = val;
     }
 
     @Override
     public void run() {
-        switch (wType) {
-            case MAIN:
+       if(windowSelector) {
                 MainWindowFrame mainWin = new MainWindowFrame();
                 mainWin.invoke();
-                break;
-            case EDITOR:
+       }
+                else if (!windowSelector) {
                 try {
                 	EditorWindowFrame editWin = new EditorWindowFrame();
                     editWin.setVisible(true);
@@ -40,14 +41,12 @@ public class WindowCreator extends Thread {
                 } catch (IOException ex) {
                     Logger.getLogger(WindowCreator.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                break;
-
+              
         }
     }
     windowType wType;
     private static volatile AtomicLong uniqueID = new AtomicLong(0);
 }
-
 enum windowType {
 
     MAIN, EDITOR

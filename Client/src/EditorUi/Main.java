@@ -14,13 +14,13 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Kunal
+ * @author Kunal, Akshay Sehgal
  */
 public class Main {
     public static void main(String args[])
     {
         System.out.println("Make Client connection");
-        WindowCreator mainWindow = new WindowCreator(windowType.MAIN);
+        WindowCreator mainWindow = new WindowCreator(true);
          mainWindow.start();
         try {
         	EditorClient ec = new EditorClient(7001);

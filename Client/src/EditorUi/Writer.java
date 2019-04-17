@@ -26,7 +26,7 @@ public class Writer extends Thread {
     ObjectInputStream in;
     ObjectOutputStream out;
     Socket s;
-    ConcurrentLinkedQueue<writeQueueMessage> message = new ConcurrentLinkedQueue<writeQueueMessage>();
+    private ConcurrentLinkedQueue<writeQueueMessage> message = new ConcurrentLinkedQueue<writeQueueMessage>();
 
     Writer(ObjectInputStream in, ObjectOutputStream out, Socket s) {
         this.in = in;
@@ -37,8 +37,8 @@ public class Writer extends Thread {
     public void run() {
         System.out.print("in writer.java\n");
         while (true) {
-            if (!message.isEmpty()) {
-                writeQueueMessage m = message.poll();
+            if (!getMessage().isEmpty()) {
+                writeQueueMessage m = getMessage().poll();
                 if (m.getType() == GlobalConstants.messageType.INSERT.getValue()) {
                     System.out.println("insert");
                     insert(m);
@@ -141,4 +141,12 @@ public class Writer extends Thread {
             ioException.printStackTrace();
         }
     }
+
+	public ConcurrentLinkedQueue<writeQueueMessage> getMessage() {
+		return message;
+	}
+
+	public void setMessage(ConcurrentLinkedQueue<writeQueueMessage> message) {
+		this.message = message;
+	}
 }
