@@ -20,8 +20,12 @@ public class BroadcasterThread implements Runnable{
     } 
     public void run(){
         for(int clientid : GlobalConstants.clientList.keySet()){
+            if(message.getPosition().getSiteId()==clientid && message.isUpdate()){
+//                message.setActualPosition(message.getActualPosition()+1);
+            }else{
             ClientInfo client=GlobalConstants.clientList.get(clientid);
             client.getClientHandler().sendMessage(this.message);
+            }
         }
     }
 }

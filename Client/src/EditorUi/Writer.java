@@ -69,6 +69,12 @@ public class Writer extends Thread {
                 ch = '\n';
             }
             if (pos == 0) {
+                if (GlobalConstants.doublepositionList.contains(0.0)) {
+                    double nextrelative = GlobalConstants.doublepositionList.get(pos + 1) / 2f;
+                    GlobalConstants.doublepositionList.set(pos, nextrelative);
+                    GlobalConstants.positionList.get(pos).setRelativePosition(nextrelative);
+                }
+                System.out.print("position--" + pos);
                 GlobalConstants.doublepositionList.add(pos, (double) pos);
                 GlobalConstants.text.insert(pos, ch);
                 Identifier identifier = new Identifier();
@@ -84,7 +90,7 @@ public class Writer extends Thread {
             } else {
                 try {
                     Double valueFromDoubleMap = GlobalConstants.doublepositionList.get(pos);
-                    double relative = (GlobalConstants.doublepositionList.get(pos - 1) + valueFromDoubleMap) / 2;
+                    double relative = (GlobalConstants.doublepositionList.get(pos - 1) + valueFromDoubleMap) / 2f;
                     Identifier identifier = new Identifier();
                     identifier.setRelativePosition(relative);
                     identifier.setSiteId(GlobalConstants.clientId.get());
@@ -118,7 +124,10 @@ public class Writer extends Thread {
 
     private void delete(writeQueueMessage m) {
         // TODO Auto-generated method stub
+        
         int pos = m.getPosition();
+        if(pos>=0){
+        //System.out.print(m.g);
         Identifier identifier = GlobalConstants.positionList.get(pos);
         char ch = GlobalConstants.text.charAt(pos);
         GlobalConstants.doublepositionList.remove(pos);
@@ -129,6 +138,7 @@ public class Writer extends Thread {
         im.setCharacter(ch);
         im.setUpdateWindowSiteId(GlobalConstants.clientId.get());
         sendMessage(im);
+        }
     }
 
     public synchronized void sendMessage(Object msg) {
@@ -142,11 +152,11 @@ public class Writer extends Thread {
         }
     }
 
-	public ConcurrentLinkedQueue<writeQueueMessage> getMessage() {
-		return message;
-	}
+    public ConcurrentLinkedQueue<writeQueueMessage> getMessage() {
+        return message;
+    }
 
-	public void setMessage(ConcurrentLinkedQueue<writeQueueMessage> message) {
-		this.message = message;
-	}
+    public void setMessage(ConcurrentLinkedQueue<writeQueueMessage> message) {
+        this.message = message;
+    }
 }

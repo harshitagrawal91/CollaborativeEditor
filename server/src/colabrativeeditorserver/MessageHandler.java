@@ -57,6 +57,8 @@ public class MessageHandler extends Thread {
             GlobalConstants.broadcast.execute(new BroadcasterThread(message));
         }
          System.out.println(GlobalConstants.text);
+           System.out.println(GlobalConstants.text);
+        System.out.println(GlobalConstants.doublepositionList);
     }
 
     private void handleInsert(SyncMessage message) {
@@ -89,17 +91,18 @@ public class MessageHandler extends Thread {
 
             }
         } else {
-            if (actualPos == 0) {
+            if (relativePos == 0.0) {
                 Double next = GlobalConstants.doublepositionList.get(actualPos + 1);
-                double newRelativePos = (relativePos + next) / 2;
+                double newRelativePos = (relativePos + next) / 2f;
                 GlobalConstants.doublepositionList.add(actualPos, relativePos);
                 GlobalConstants.positionList.add(actualPos, message.getPosition());
                 GlobalConstants.text.insert(actualPos, message.getCharacter());
-                GlobalConstants.doublepositionList.set(actualPos + 1, relativePos);
-                GlobalConstants.positionList.get(actualPos + 1).setRelativePosition(newRelativePos);
+                GlobalConstants.doublepositionList.set(1, newRelativePos);
+                GlobalConstants.positionList.get(1).setRelativePosition(newRelativePos);
                 SyncMessage update = new SyncMessage();
-                update.setActualPosition(actualPos);
+                update.setActualPosition(0);
                 update.setUpdate(true);
+                update.setType(GlobalConstants.messageType.INSERT.getValue());
                 Identifier id = new Identifier();
                 id.setRelativePosition(newRelativePos);
                 id.setSiteId(message.getPosition().getSiteId());
@@ -115,7 +118,7 @@ public class MessageHandler extends Thread {
 
             } else {
                 Double next = GlobalConstants.doublepositionList.get(actualPos + 1);
-                double newRelativePos = (relativePos + next) / 2;
+                double newRelativePos = (relativePos + next) / 2f;
                 message.getPosition().setRelativePosition(newRelativePos);
                 message.setActualPosition(actualPos + 1);
                 GlobalConstants.doublepositionList.add(actualPos + 1, newRelativePos);
@@ -128,6 +131,7 @@ public class MessageHandler extends Thread {
             }
         }
         System.out.println(GlobalConstants.text);
+        System.out.println(GlobalConstants.doublepositionList);
     }
 
 }
