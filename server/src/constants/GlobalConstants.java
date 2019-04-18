@@ -34,13 +34,15 @@ public class GlobalConstants {
     public static StringBuffer text = new StringBuffer("");
     public static CopyOnWriteArrayList<Identifier> positionList = new CopyOnWriteArrayList<>();
     public static CopyOnWriteArrayList<Double> doublepositionList = new CopyOnWriteArrayList<>();
-    public static BroadcasterThread broadcasterThread;
+    //public static BroadcasterThread broadcasterThread;
     public static MessageHandler messageHandler;
     public static ExecutorService broadcast = Executors.newFixedThreadPool(50);
 
     public static enum messageType {
         DELETE((byte) 0),
-        INSERT((byte) 1);
+        INSERT((byte) 1),
+        SELECTIONDELETE((byte) 2),
+        UPDATENAME((byte)3);
 
         private final byte value;
 

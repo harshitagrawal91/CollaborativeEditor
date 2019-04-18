@@ -34,7 +34,9 @@ public class GlobalConstants {
 
     public static enum messageType {
         DELETE((byte) 0),
-        INSERT((byte) 1);
+        INSERT((byte) 1),
+        SELECTIONDELETE((byte) 2),
+         UPDATENAME((byte)3);
 
         private final byte value;
 

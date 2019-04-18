@@ -22,6 +22,8 @@ import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicLong;
 import clientObjects.Identifier;
 import clientObjects.clientInitalizer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Server extends Thread {
 
@@ -29,11 +31,30 @@ public class Server extends Thread {
     private Socket socket = null;
     private int port;
     private static volatile AtomicLong uniqueID = new AtomicLong(0);
+    private static final Object lock = new Object();
+    private static volatile Server instance;
 
     public Server(int port) throws IOException {
         this.port = port;
     }
-
+    public static Server getInstance(int port) {
+    Server linstance = instance;
+    if (linstance == null) {
+        synchronized (lock) {    // While we were waiting for the lock, another 
+            linstance = instance;        // thread may have instantiated the object.
+            if (linstance == null) {  
+                try {
+                    linstance = new Server(port);
+                     instance = linstance;
+                } catch (IOException ex) {
+                    instance = linstance;
+                }
+               
+            }
+        }
+    }
+    return linstance;
+}
     public void run() {
         try {
             serverSocket = new ServerSocket(port);
@@ -45,20 +66,20 @@ public class Server extends Thread {
                 ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
                 out.flush();
                 ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
-                MessageHandler mh=new MessageHandler();
-                GlobalConstants.messageHandler=mh;
+                MessageHandler mh = new MessageHandler();
+                GlobalConstants.messageHandler = mh;
                 mh.start();
-                clientInitalizer ci = new clientInitalizer(GlobalConstants.clientId.incrementAndGet(), GlobalConstants.documentName.toString(), GlobalConstants.text
-                ,GlobalConstants.positionList,GlobalConstants.doublepositionList);
+                clientInitalizer ci = new clientInitalizer(GlobalConstants.clientId.incrementAndGet(), GlobalConstants.documentName.toString(), GlobalConstants.text,
+                         GlobalConstants.positionList, GlobalConstants.doublepositionList);
                 try {
                     out.writeObject(ci);
                     out.flush();
-			System.out.println("Send Client Initializer");
+                    System.out.println("Send Client Initializer");
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }
-                ClientHandler ch=new ClientHandler(in, out, socket, GlobalConstants.clientId.get());  
-                GlobalConstants.clientList.put(GlobalConstants.clientId.get(), new ClientInfo(GlobalConstants.clientId.get(),ch));
+                ClientHandler ch = new ClientHandler(in, out, socket, GlobalConstants.clientId.get());
+                GlobalConstants.clientList.put(GlobalConstants.clientId.get(), new ClientInfo(GlobalConstants.clientId.get(), ch));
                 ch.start();
 
             }

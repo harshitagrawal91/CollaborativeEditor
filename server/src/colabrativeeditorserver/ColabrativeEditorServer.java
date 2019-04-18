@@ -6,9 +6,7 @@
 package colabrativeeditorserver;
 
 import constants.GlobalConstants;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**
  *
@@ -22,14 +20,10 @@ public class ColabrativeEditorServer {
     public static void main(String[] args) {
         // TODO code application logic here
         GlobalConstants.setConfiguration(UtilityClass.readServerInfoConfig());
-        try {
-            Server s=new Server(GlobalConstants.getConfiguration().getPort());
-            s.start();
-            int a=10;
-        } catch (IOException ex) {
-//            Logger.getLogger(ColabrativeEditorServer.class.getName()).log(Level.SEVERE, null, ex);
-        }
         
+            int port= GlobalConstants.getConfiguration().getPort();
+            Server s=Server.getInstance(port);
+            s.start();
     }
     
 }

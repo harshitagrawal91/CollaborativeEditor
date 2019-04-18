@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import javax.swing.SwingWorker;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -147,12 +148,12 @@ public class EditorWindowFrame extends javax.swing.JFrame {
 	}// </editor-fold>//GEN-END:initComponents
 
     public void setInitial() {
-
+        
         SwingWorker sw1 = new SwingWorker() {
-
+            
             @Override
             protected Boolean doInBackground() throws Exception {
-
+                
                 editableUniqueIdTag.setText(GlobalConstants.clientId.toString());
                 System.out.println(GlobalConstants.clientId);
                 documentName.setForeground(Color.BLACK);
@@ -161,67 +162,68 @@ public class EditorWindowFrame extends javax.swing.JFrame {
                 writingArea.setText(GlobalConstants.text.toString());
                 return true;
             }
-
+            
             @Override
             protected void done() {
-
+                
             }
         };
 
         // executes the swingworker on worker thread
         sw1.execute();
     }
-
+    
     public void insertCharInWritingArea(String s, int pos) {
-
+        
         SwingWorker sw1 = new SwingWorker() {
-
+            
             @Override
             protected Boolean doInBackground() throws Exception {
                 if (writingArea.getText().equals("Write here...")) {
                     writingArea.setText(null);
                     writingArea.setForeground(Color.black);
                 }
-                int carret=writingArea.getCaretPosition();
+                int carret = writingArea.getCaretPosition();
                 writingArea.insert(s, pos);
                 writingArea.setCaretPosition(carret);
                 return true;
             }
-
+            
             @Override
             protected void done() {
-
+                
             }
         };
 
         // executes the swingworker on worker thread
         sw1.execute();
     }
-
+    
     public void updateDocumentName(String s) {
-
+        
         SwingWorker sw1 = new SwingWorker() {
-
+            
             @Override
             protected Boolean doInBackground() throws Exception {
-                GlobalConstants.documentName.replace(0, documentName.getSelectionEnd(), documentName.getText());
+               // GlobalConstants.documentName.replace(0, documentName.getSelectionEnd(), documentName.getText());
+               documentName.setText(s);
                 return true;
             }
-
+            
             @Override
             protected void done() {
-
+                
             }
         };
 
         // executes the swingworker on worker thread
         sw1.execute();
     }
-
+    
     public void deleteCharacter(int pos) {
-
+        
         SwingWorker sw1 = new SwingWorker() {
-
+            
             @Override
             protected Boolean doInBackground() throws Exception {
                 StringBuffer s = new StringBuffer(writingArea.getText());
@@ -231,7 +233,7 @@ public class EditorWindowFrame extends javax.swing.JFrame {
                 writingArea.setCaretPosition(carret);
                 return true;
             }
-
+            
             @Override
             protected void done() {
                 writingArea.revalidate();
@@ -242,7 +244,7 @@ public class EditorWindowFrame extends javax.swing.JFrame {
         // executes the swingworker on worker thread
         sw1.execute();
     }
-
+    
     private void writingAreaFocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_writingAreaFocusGained
         if (writingArea.getText().equals("Write here...")) {
             writingArea.setText(null);
@@ -262,22 +264,24 @@ public class EditorWindowFrame extends javax.swing.JFrame {
         int endPosition = writingArea.getSelectionEnd();
         char c = evt.getKeyChar();
         String ch = Character.toString(c);
-
+        
         if (evt.getKeyCode() == 8) {
             if (position == endPosition) {
                 writeQueueMessage msg = new writeQueueMessage(GlobalConstants.messageType.DELETE.getValue(),
                         position - 1, Character.toString(' '));
                 GlobalConstants.writer.getMessage().add(msg);
-            } else if (position != endPosition && endPosition > position) {
-                for (int i = position; i < endPosition; i++) {
-                    writeQueueMessage msg = new writeQueueMessage(GlobalConstants.messageType.DELETE.getValue(),
-                            position, Character.toString(' '));
-                    GlobalConstants.writer.getMessage().add(msg);
-                }
+            }            
+        } else if (evt.getKeyCode() == 127) {
+            ArrayList<Integer> delPositions = new ArrayList<Integer>();
+            for (int i = position; i <= endPosition; i++) {
+                delPositions.add(i);
             }
+            writeQueueMessage msg = new writeQueueMessage(GlobalConstants.messageType.SELECTIONDELETE.getValue(),
+                    -1, Character.toString(' '));
+            msg.setDelPositions(delPositions);
+            GlobalConstants.writer.getMessage().add(msg);
         } else {
-            // String ch = evt.getKeyText(evt.getKeyCode());
-            // need to pass object of type write Queue Message
+            
             writeQueueMessage msg = new writeQueueMessage(GlobalConstants.messageType.INSERT.getValue(), position, ch);
             GlobalConstants.writer.getMessage().add(msg);
         }
@@ -293,7 +297,9 @@ public class EditorWindowFrame extends javax.swing.JFrame {
     }// GEN-LAST:event_writingAreaKeyReleased
 
     private void updateDocumentTagActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_updateDocumentTagActionPerformed
-        updateDocumentName(documentName.getText());
+       // updateDocumentName(documentName.getText());
+       GlobalConstants.writer.updateDocument(documentName.getText());
+       
     }// GEN-LAST:event_updateDocumentTagActionPerformed
 
     /**

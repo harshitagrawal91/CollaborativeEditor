@@ -18,6 +18,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import clientObjects.ClientInfo;
 import clientObjects.SyncMessage;
+import clientObjects.UpdateDocumentName;
+import java.net.SocketException;
 
 /**
  *
@@ -62,7 +64,10 @@ public class ClientHandler extends Thread {
                 }
             }
 
-        } catch (IOException ex) {
+        }catch (SocketException se) {
+               GlobalConstants.clientList.remove(clientId);
+        } 
+        catch (IOException ex) {
                 System.out.print("IO Exception"+ex);
         } catch (ClassNotFoundException ex) {
                System.out.print("Class not found Exception"+ex.getStackTrace());

@@ -17,8 +17,17 @@ public class SyncMessage implements Serializable {
     char character;
     int actualPosition;
     byte type;
+    String docName;
     boolean update = false;
     int updateWindowSiteId;
+
+    public String getDocName() {
+        return docName;
+    }
+
+    public void setDocName(String docName) {
+        this.docName = docName;
+    }
 
     public int getUpdateWindowSiteId() {
         return updateWindowSiteId;

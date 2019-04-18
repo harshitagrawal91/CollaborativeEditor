@@ -5,6 +5,8 @@
  */
 package clientObjects;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author dell
@@ -14,6 +16,15 @@ public class writeQueueMessage {
     int position;
     String ch;
     byte type;
+    ArrayList<Integer> delPositions=new ArrayList<Integer>();
+
+    public ArrayList<Integer> getDelPositions() {
+        return delPositions;
+    }
+
+    public void setDelPositions(ArrayList<Integer> delPositions) {
+        this.delPositions = delPositions;
+    }
 
     public byte getType() {
         return type;

@@ -32,6 +32,9 @@ public class MessageHandler extends Thread {
                 } else if (message.getType() == GlobalConstants.messageType.DELETE.getValue()) {
                      System.out.println("delete"+message.getType());
                     handleDelete(message);
+                }else if(message.getType()==GlobalConstants.messageType.UPDATENAME.getValue()){
+                    GlobalConstants.documentName=new StringBuffer(message.getDocName());
+                    GlobalConstants.broadcast.execute(new BroadcasterThread(message));
                 }
             } else {
                 synchronized (this) {

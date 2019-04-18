@@ -62,6 +62,8 @@ public class Listener extends Thread {
                         handleInsertMessage(im);
                     } else if (im.getType() == GlobalConstants.messageType.DELETE.getValue() && im.getUpdateWindowSiteId() != GlobalConstants.clientId.get()) {
                         handleDeleteMessage(im);
+                    } else if (im.getType() == GlobalConstants.messageType.UPDATENAME.getValue()) {
+                        handleUpdateDocName(im);
                     }
                 }
             } catch (IOException ex) {
@@ -70,6 +72,12 @@ public class Listener extends Thread {
                 Logger.getLogger(Listener.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+
+    private void handleUpdateDocName(SyncMessage im) {
+        System.out.print("doc name=----"+im.getDocName());
+    GlobalConstants.documentName=new StringBuffer(im.getDocName());
+    GlobalConstants.editWin.updateDocumentName(im.getDocName());
     }
 
     private void handleDeleteMessage(SyncMessage im) {
@@ -91,43 +99,17 @@ public class Listener extends Thread {
     private void handleInsertMessage(SyncMessage im) {
 
         if (im.getPosition().getSiteId() == GlobalConstants.clientId.get()) {
-           
-//			if (im.getActualPosition() == 0 && im.isUpdate()) {
-//				if (GlobalConstants.doublepositionList.size() > 1) {
-//					im.setActualPosition(im.getActualPosition() + 1);
-//				}
-//			}
-
-//            if (im.getActualPosition() == 0 && im.isUpdate() == false) {
-//                int index = GlobalConstants.doublepositionList.indexOf(im.getPosition().getRelativePosition());
-//                if (index == -1) {
-//                    GlobalConstants.doublepositionList.add(im.getActualPosition(), im.getPosition().getRelativePosition());
-//                    GlobalConstants.positionList.add(im.getActualPosition(), im.getPosition());
-//                    GlobalConstants.text.insert(im.getActualPosition(), im.getCharacter());
-//                    GlobalConstants.editWin.insertCharacter(Character.toString(im.getCharacter()), im.getActualPosition());
-//                } else {
-//                    messageBuffer.put(im.getPosition().getRelativePosition(), im);
-//                }
-//
-//            } else {
             int actualPos = im.getActualPosition();
-             double oldRelative = GlobalConstants.doublepositionList.get(actualPos);
+            double oldRelative = GlobalConstants.doublepositionList.get(actualPos);
             double newRelative = im.getPosition().getRelativePosition();
-//             if (im.isUpdate()) {
-//                GlobalConstants.doublepositionList.set(actualPos, newRelative);
-//                GlobalConstants.positionList.get(actualPos).setRelativePosition(newRelative);
-//            }else{
-//            double oldRelative = GlobalConstants.doublepositionList.get(actualPos);
             GlobalConstants.doublepositionList.set(actualPos, newRelative);
             GlobalConstants.positionList.set(actualPos, im.getPosition());
-//             }
             if (messageBuffer.containsKey(oldRelative)) {
                 handleInsertMessage(messageBuffer.get(oldRelative));
             }
             if (deletebuffer.contains(im.getPosition())) {
                 handleDeleteMessage(im);
             }
-//            }
 
         } else {
             int actualPos = im.getActualPosition();
@@ -142,20 +124,20 @@ public class Listener extends Thread {
                 if (deletebuffer.contains(im.getPosition())) {
                     handleDeleteMessage(im);
                 }
-            }else{
-            double relativePos = im.getPosition().getRelativePosition();
-            int index = GlobalConstants.doublepositionList.indexOf(relativePos);
-            if (index == -1) {
-                GlobalConstants.doublepositionList.add(actualPos, relativePos);
-                GlobalConstants.positionList.add(actualPos, im.getPosition());
-                GlobalConstants.text.insert(actualPos, im.getCharacter());
-                GlobalConstants.editWin.insertCharInWritingArea(Character.toString(im.getCharacter()), actualPos);
-                if (deletebuffer.contains(im.getPosition())) {
-                    handleDeleteMessage(im);
-                }
             } else {
-                messageBuffer.put(relativePos, im);
-            }
+                double relativePos = im.getPosition().getRelativePosition();
+                int index = GlobalConstants.doublepositionList.indexOf(relativePos);
+                if (index == -1) {
+                    GlobalConstants.doublepositionList.add(actualPos, relativePos);
+                    GlobalConstants.positionList.add(actualPos, im.getPosition());
+                    GlobalConstants.text.insert(actualPos, im.getCharacter());
+                    GlobalConstants.editWin.insertCharInWritingArea(Character.toString(im.getCharacter()), actualPos);
+                    if (deletebuffer.contains(im.getPosition())) {
+                        handleDeleteMessage(im);
+                    }
+                } else {
+                    messageBuffer.put(relativePos, im);
+                }
             }
         }
         System.out.println(GlobalConstants.doublepositionList);
