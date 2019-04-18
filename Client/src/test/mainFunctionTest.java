@@ -34,7 +34,7 @@ class mainFunctionTest {
     	int objSelection = rObj.nextInt(2);
 		try {
 			try {
-	        	EditorClient ec = new EditorClient(7001);
+	        	EditorClient ec = new EditorClient(7001,"localhost");
 	             ec.connectToServer();
 	        } catch (IOException ex) {
 	            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
@@ -51,7 +51,7 @@ class mainFunctionTest {
             editWin1.setInitial();                    //Is it right to use get and get and increment in the same scope????????
             
             try {
-            	EditorClient ec = new EditorClient(7001);
+            	EditorClient ec = new EditorClient(7001,"localhost");
                  ec.connectToServer();
             } catch (IOException ex) {
                 Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);

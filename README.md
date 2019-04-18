@@ -19,3 +19,10 @@ server client architecture and once the server is up. There can be multiple clie
 update and delete. The same gets reflected in each copy and the final copy of all the documents converge.
 
 Instructions to Build and Run the application
+
+1. Run the Server project CollaborativeEditorServer.
+It takes the port from serverInfo.txt(port- 7001)
+
+
+2. Run the clients CollaborativeEditor with command line arguments port and IP Address
+[7001, "localhost"]

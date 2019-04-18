@@ -22,22 +22,22 @@ public class Main {
         System.out.println("Make Client connection");
         WindowCreator editWindow = new WindowCreator(false);
          editWindow.start();
-        try {
-        	EditorClient ec = new EditorClient(7001);
-             ec.connectToServer();
-        } catch (IOException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//        	EditorClient ec = new EditorClient(7001);
+//             ec.connectToServer();
+//        } catch (IOException ex) {
+//            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+//        }
                
-//        if(args.length>0){
-//            try {
-////                EditorClient ec=new EditorClient(Integer.parseInt(args[0]));
-////                ec.connectToServer();
-//            } catch (IOException ex) {
-//                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-//            }
+        if(args.length>1){
+            try {
+                EditorClient ec=new EditorClient(Integer.parseInt(args[0]),args[1]);
+                ec.connectToServer();
+            } catch (IOException ex) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            }
         
-//                }
+                }
         
 
         

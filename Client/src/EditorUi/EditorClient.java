@@ -26,12 +26,14 @@ import java.util.concurrent.TimeUnit;
  */
 public class EditorClient {
    int port;
-    public EditorClient(int port) throws IOException {
+   String serverIp;
+    public EditorClient(int port, String serverIp) throws IOException {
       this.port=port; 
+      this.serverIp=serverIp;
     }
     public void connectToServer(){
         try{
-           Socket socket = new Socket("localhost",port);
+           Socket socket = new Socket(serverIp,port);
            ObjectOutputStream os=new ObjectOutputStream(socket.getOutputStream());
            os.flush();
            ObjectInputStream in=new ObjectInputStream(socket.getInputStream());
