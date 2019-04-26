@@ -25,4 +25,4 @@ It takes the port from serverInfo.txt(port- 7001)
 
 
 2. Run the clients CollaborativeEditor with command line arguments port and IP Address
-[7001, "localhost"]
+[7001 "localhost"]
